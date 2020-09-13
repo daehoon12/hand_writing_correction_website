@@ -25,13 +25,15 @@
 <br/>
 
 # Procedure  
-##   
+
 1. EMNIST 기반의 데이터를 CNN 모델로 학습시킨다.   
 2. 웹에 구현된 원고지에 글씨를 쓴다.  
 3. OpenCV로 쓴 글씨를 인식해 이미지로 저장한다.  
 4. 모델이 글씨를 인식하고 글꼴을 선택한다.   
 5. 글꼴에 맞춰 글씨를 쓴다.  
 
+# Model  
+<img src="/document/Capture/1.PNG" width="50%" height="50%">  
 # Website
 
 #### **Initial Page**
