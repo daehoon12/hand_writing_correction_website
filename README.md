@@ -32,8 +32,8 @@
 4. 모델이 글씨를 인식하고 글꼴을 선택한다.   
 5. 글꼴에 맞춰 글씨를 쓴다.  
 
-# Model  
-<img src="/document/Capture/1.PNG" width="50%" height="50%">  
+# Model   
+<img src="/document/Capture/1.png" width="50%" height="50%">  
 # Website
 
 #### **Initial Page**
