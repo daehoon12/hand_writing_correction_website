@@ -34,6 +34,8 @@
 
 # Model   
 <img src="/document/capture/1.png" width="50%" height="50%">  
+Batch Size = 128, Epoch = 100
+
 # Website
 
 #### **Initial Page**
