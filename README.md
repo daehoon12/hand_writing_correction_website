@@ -19,15 +19,19 @@
 | [sja3410(안선정)](https://github.com/sja3410) |         데이터 관리자, 서브 코더          |  프로젝트에 필요한 데이터 수집 및 관리, 데이터 추출 및 저장 관련 코더 |
 
 # Stack  
-- Model : tensorflow, keras, Python  
+- Model : tensorflow, keras, Python 
 - Web : Node.js, css, javascript, HTML  
-- Data : Python
+- Data : OpenCV, Python
 <br/>
 
 # Procedure  
 ##   
-1. EMNIST 기반의 데이터를 CNN 모델로 학습시킨다.  
-2. 
+1. EMNIST 기반의 데이터를 CNN 모델로 학습시킨다.   
+2. 웹에 구현된 원고지에 글씨를 쓴다.  
+3. OpenCV로 쓴 글씨를 인식해 이미지로 저장한다.  
+4. 모델이 글씨를 인식하고 글꼴을 선택한다.   
+5. 글꼴에 맞춰 글씨를 쓴다.  
+
 # Website
 
 #### **Initial Page**
