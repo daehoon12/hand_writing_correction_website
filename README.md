@@ -18,7 +18,10 @@
 |    [limjustin(임재영)](https://github.com/limjustin)  |     웹 디자인 및 설계          | UI 설계, 서버 설계 및 관리         |
 | [sja3410(안선정)](https://github.com/sja3410) |         데이터 관리자, 서브 코더          |  프로젝트에 필요한 데이터 수집 및 관리, 데이터 추출 및 저장 관련 코더 |
 
-
+# Stack  
+- Model : tensorflow, keras, Python  
+- Web : Node.js, css, javascript, HTML  
+- Data : Python
 <br/>
 
 # Website
