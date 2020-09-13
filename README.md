@@ -33,7 +33,7 @@
 5. 글꼴에 맞춰 글씨를 쓴다.  
 
 # Model   
-<img src="/document/Capture/1.png" width="50%" height="50%">  
+<img src="/document/capture/1.png" width="50%" height="50%">  
 # Website
 
 #### **Initial Page**
