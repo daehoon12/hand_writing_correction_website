@@ -24,6 +24,10 @@
 - Data : Python
 <br/>
 
+# Procedure  
+##   
+1. EMNIST 기반의 데이터를 CNN 모델로 학습시킨다.  
+2. 
 # Website
 
 #### **Initial Page**
