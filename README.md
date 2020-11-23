@@ -3,7 +3,7 @@
 #### 2020년 제 14회 공개 SW 개발자 대회 참여 프로젝트 
 <https://www.oss.kr/dev_competition>
 
-#### 손글씨 교정 웹사이트(Hand-Writing Correction Website)
+#### 손글씨 교정 웹사이트(Hand-Writing Correction Website) 
 <https://github.com/jiminAn/hand_writing_correction_website>
 
 <br/>
