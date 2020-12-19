@@ -35,7 +35,11 @@
 # Model   
   <img src="/document/capture/1.png" width="50%" height="50%">  
 
-Batch Size = 128, Epoch = 100
+## Hyperparameters  
+- Batch Size = 128   
+- Epoch = 100  
+- Optimizer = rmsprop  
+- Loss Function = categorical_crossentropy  
 
 # Website
 
