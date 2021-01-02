@@ -36,9 +36,9 @@
   <img src="/document/capture/1.png" width="50%" height="50%">  
 
 ## Hyperparameters  
-- Batch Size = 128   
-- Epoch = 100  
-- Optimizer = rmsprop  
+- Batch Size = 32   
+- Epoch = 50  
+- Optimizer = adam  
 - Loss Function = categorical_crossentropy  
 
 # Website
