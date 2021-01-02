@@ -5,8 +5,9 @@
 # =============================
 # 20200826 Ver 1.0 초안 및 주석 작성 (안지민)
 # 20200828 Ver 1.1 Epohc 수정 (안지민)
+# 20200102 Ver 1.2 Model 아키텍처, Hyperparameters 수정 (강대훈)
 # =============================
-# Ver 1.1
+# Ver 1.2
 
 # Visualization Dependencies
 from IPython.display import Image, SVG
@@ -22,9 +23,6 @@ from sklearn.preprocessing import MinMaxScaler
 from tensorflow import keras
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.layers import Dense, Dropout, Flatten
-from keras.layers.convolutional import Conv2D
-from keras.layers.convolutional import MaxPooling2D
-from keras import backend as K
 from tensorflow.keras.datasets import mnist
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
@@ -41,56 +39,98 @@ sns.set()
 from emnist import list_datasets
 list_datasets()
 
-from emnist import extract_training_samples
-images_train, labels_train = extract_training_samples('letters')
 from emnist import extract_test_samples
-images_test, labels_test = extract_test_samples('letters')
+from emnist import extract_training_samples
+X_train, Y_train = extract_training_samples('letters')
+X_test, Y_test = extract_test_samples('letters')
 
 # Flatten Data
-dims = images_train.shape[1] * images_train.shape[2]
-X_train = images_train.reshape(images_train.shape[0], dims)
-X_test = images_test.reshape(images_test.shape[0], dims)
-
+X_train = X_train.reshape(X_train.shape[0], 28, 28, 1)
+X_test = X_test.reshape(X_test.shape[0], 28, 28, 1)
+print(X_train.shape)
 
 # Rescale to 0 -> 1 by dividing by max pixel value (255)
-X_train = X_train.astype('float32')/255
-X_test = X_test.astype('float32')/255
+# X_train = X_train.astype('float32')/255
+# X_test = X_test.astype('float32')/255
 
+# Create an ImageDataGenerator and do Image Augmentation
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+train_datagen = ImageDataGenerator(
+    rescale=1. / 255
+)
+
+validation_datagen = ImageDataGenerator(
+    rescale=1. / 255)
 
 # One-Hot Encoding
 
-from keras.utils import np_utils # used to convert array of labeled data to one-hot vector
-# should be 26 but out of index?
-# Effects accuracy as have a class where their will be no results
 num_classes = 27
-y_train = np_utils.to_categorical(labels_train, num_classes)
-y_test = np_utils.to_categorical(labels_test, num_classes)
+Y_train = to_categorical(Y_train, num_classes)
+Y_test = to_categorical(Y_test, num_classes)
 
+# Callback
+class Callbacks(tf.keras.callbacks.Callback):
+    def on_epoch_end(self, epoch, logs={}):
+      if(logs.get('accuracy')>0.98):
+        print("\n 98% acc reached")
+        self.model.stop_training = True
 
+callbacks = Callbacks()
 # Empty Sequential model
 from tensorflow.keras.models import Sequential
 model = Sequential()
 
 #Layers
 
-# 1 - number of elements (pixels) in each image
-# Dense layer - when every node from previous layer is connected to each node in current layer
-model.add(Dense(500, activation='relu'))
+model = tf.keras.models.Sequential()
 
-# Second Hidden Layer
-model.add(Dense(500, activation='relu'))
-
-# Output Layer - number of nodes corresponds to number of y labels
-model.add(Dense(num_classes, activation='softmax'))
+model.add(tf.keras.layers.Conv2D(64, (3,3), activation='relu',padding ='same', input_shape=(28,28,1)))
+model.add(tf.keras.layers.MaxPooling2D(2,2))
+model.add(tf.keras.layers.Conv2D(32, (3,3), activation='relu',padding ='same',))
+model.add(tf.keras.layers.MaxPooling2D(2,2))
+model.add(Dropout(0.2))
+model.add(tf.keras.layers.Flatten())
+model.add(tf.keras.layers.Dense(512, activation='relu'))
+model.add(tf.keras.layers.Dense(27, activation='softmax'))
+# # 1 - number of elements (pixels) in each image
+# # Dense layer - when every node from previous layer is connected to each node in current layer
+# model.add(Dense(500, activation='relu'))
+#
+# # Second Hidden Layer
+# model.add(Dense(500, activation='relu'))
+#
+# # Output Layer - number of nodes corresponds to number of y labels
+# model.add(Dense(num_classes, activation='softmax'))
 
 # Compile Model
-model.compile(loss='categorical_crossentropy', optimizer='rmsprop' , metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy', optimizer='adam' , metrics=['accuracy'])
 
+# Train the Model
+train_generator = train_datagen.flow(X_train, Y_train)
+validation_generator = validation_datagen.flow(X_test, Y_test)
 
+history = model.fit_generator(train_generator,
+                              epochs=20,
+                              verbose=1,
+                              validation_data=validation_generator,
+                              callbacks = [callbacks])
 # Train Model
-model.fit(X_train, y_train, batch_size=128, epochs=100, shuffle=True, verbose=2)
-
 model.summary()
 
 # Save Model
 model.save("emnist_trained.h5")
+
+import matplotlib.pyplot as plt
+
+
+def plot_graphs(history, string):
+    plt.plot(history.history[string])
+    plt.plot(history.history['val_' + string])
+    plt.xlabel("Epochs")
+    plt.ylabel(string)
+    plt.legend([string, 'val_' + string])
+    plt.show()
+
+
+plot_graphs(history, "accuracy")
+plot_graphs(history, "loss")
