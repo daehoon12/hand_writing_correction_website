@@ -33,7 +33,9 @@
 5. 글꼴에 맞춰 글씨를 쓴다.  
 
 # Model   
-  <img src="/document/capture/1.png" width="50%" height="50%">  
+
+![image](https://user-images.githubusercontent.com/32921115/103524257-9aa31b00-4ec0-11eb-851f-0104ffa55ae1.png)
+
 
 ## Hyperparameters  
 - Batch Size = 32   
